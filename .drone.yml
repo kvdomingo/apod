@@ -46,13 +46,13 @@ steps:
         - "${DRONE_COMMIT_SHA}"
 
   - name: Update manifest repo
-    image: git.lab.kvd.studio/r/update-manifest-image-tag:v0.1
+    image: git.lab.kvd.studio/r/update-manifest-image-tag:v0.2
     settings:
       ssh_key:
         from_secret: GITEA_SSH_KEY
       known_hosts:
         from_secret: GITEA_KNOWN_HOSTS
-      repo_name: apod
+      manifest_repo_name: homelab
       helm_values_path: apod/apod/values.yaml
       yaml_image_tag_path: ".image.tag"
       image_tag: ${DRONE_COMMIT_SHA}
