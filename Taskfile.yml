@@ -1,0 +1,11 @@
+version: 3
+
+tasks:
+  default:
+    cmds:
+      - task: dev
+
+  dev:
+    desc: Run development server
+    cmds:
+      - air -c .air.toml
