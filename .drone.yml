@@ -65,7 +65,7 @@ steps:
       known_hosts:
         from_secret: GITEA_KNOWN_HOSTS
       manifest_repo_name: homelab
-      helm_values_path: apod/apod/values.yaml
+      helm_values_path: apod/values.yaml
       yaml_image_tag_path: ".image.tag"
       image_tag: ${DRONE_COMMIT_SHA}
       app_name: apod
