@@ -12,7 +12,7 @@ jobs:
         with:
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
           message: >-
-            Build #[${{ gitea.run_number }}](${{ gitea.server_url }}/${{ gitea.repository }}/actions/runs/${{ gitea.run_number }})
+            **Build [#${{ gitea.run_number }}](${{ gitea.server_url }}/${{ gitea.repository }}/actions/runs/${{ gitea.run_number }})**
             started for [${{ gitea.repository }}](${{ gitea.server_url }}/${{ gitea.repository }})
             by [${{ gitea.actor }}](${{ gitea.server_url }}/${{ gitea.actor }}).
 
@@ -69,20 +69,20 @@ jobs:
           message: "Update APOD release tag to ${{ gitea.sha }}"
           push: true
 
-      - name: Notify build started
+      - name: Notify build success
         uses: discord-actions/message@v2
         if: success()
         with:
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
           message: >-
-            Build #[${{ gitea.run_number }}](${{ gitea.server_url }}/${{ gitea.repository }}/actions/runs/${{ gitea.run_number }})
+            Build [#${{ gitea.run_number }}](${{ gitea.server_url }}/${{ gitea.repository }}/actions/runs/${{ gitea.run_number }})
             for [${{ gitea.repository }}](${{ gitea.server_url }}/${{ gitea.repository }}) **succeeded**.
 
-      - name: Notify build started
+      - name: Notify build failure
         uses: discord-actions/message@v2
         if: ${{ always() && contains(needs.*.result, 'failure') }}
         with:
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
           message: >-
-            Build #[${{ gitea.run_number }}](${{ gitea.server_url }}/${{ gitea.repository }}/actions/runs/${{ gitea.run_number }})
+            Build [#${{ gitea.run_number }}](${{ gitea.server_url }}/${{ gitea.repository }}/actions/runs/${{ gitea.run_number }})
             for [${{ gitea.repository }}](${{ gitea.server_url }}/${{ gitea.repository }}) **failed**.
