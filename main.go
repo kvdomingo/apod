@@ -3,6 +3,8 @@ package main
 import (
 	"crypto/tls"
 	"encoding/json"
+	"github.com/gofiber/fiber/v2/middleware/healthcheck"
+	"github.com/gofiber/fiber/v2/middleware/monitor"
 	"io"
 	"net/http"
 	"os"
@@ -57,10 +59,16 @@ func main() {
 		panic("NASA_APOD_API_KEY not set")
 	}
 
-	app.Get(
-		"/health", func(ctx *fiber.Ctx) error {
-			return ctx.SendString("ok")
+	app.Use(healthcheck.New(
+		healthcheck.Config{
+			LivenessEndpoint:  "/live",
+			ReadinessProbe:    nil,
+			ReadinessEndpoint: "/ready",
 		},
+	))
+
+	app.Get("/metrics", monitor.New(
+		monitor.Config{Title: "APOD"}),
 	)
 
 	app.Get(
