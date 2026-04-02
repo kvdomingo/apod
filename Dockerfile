@@ -8,7 +8,8 @@ ENV GOARCH=${TARGETARCH}
 
 WORKDIR /build
 
-COPY . .
+COPY go.* ./
+COPY *.go ./
 
 RUN go build -mod=readonly -o /app
 
